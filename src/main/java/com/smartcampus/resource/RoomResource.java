@@ -1,13 +1,11 @@
 package com.smartcampus.resource;
-
 import com.smartcampus.exception.RoomNotEmptyException;
+import com.smartcampus.exception.LinkedResourceNotFoundException;
 import com.smartcampus.model.Room;
 import com.smartcampus.store.DataStore;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-
-
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +39,23 @@ public class RoomResource {
         }
 
         return Response.ok(room).build();
+    }
+    
+    @DELETE
+    @Path("/{roomId}")
+    public Response deleteRoom(@PathParam("roomId") String roomId) {
+        Room room = DataStore.rooms.get(roomId);
+
+        if (room == null) {
+            throw new LinkedResourceNotFoundException("Room with ID " + roomId + " does not exist.");
+        }
+
+        if (room.getSensorIds() != null && !room.getSensorIds().isEmpty()) {
+            throw new RoomNotEmptyException("Room " + roomId + " cannot be deleted because it still has assigned sensors.");
+        }
+
+        DataStore.rooms.remove(roomId);
+
+        return Response.ok("Room deleted successfully").build();
     }
 }

@@ -4,9 +4,9 @@ import com.smartcampus.exception.LinkedResourceNotFoundException;
 import com.smartcampus.model.Room;
 import com.smartcampus.model.Sensor;
 import com.smartcampus.store.DataStore;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,5 +78,9 @@ public class SensorResource {
         return Response.status(Response.Status.CREATED)
                 .entity(sensor)
                 .build();
+    }
+    @Path("/{sensorId}/readings")
+    public SensorReadingResource getSensorReadingResource() {
+        return new SensorReadingResource();
     }
 }

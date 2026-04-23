@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.smartcampus.exception;
 
-/**
- *
- * @author aurou
- */
-public class SensorUnavailableException {
-    
+public class SensorUnavailableException extends RuntimeException {
+    //A Constructor is used to allow an error message to be passed when the exception is thrown
+    public SensorUnavailableException(String message) {
+        super(message);
+    }
 }
