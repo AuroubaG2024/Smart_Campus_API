@@ -1,21 +1,26 @@
 package com.smartcampus.resource;
-
+//imports the other files and exceptions
 import com.smartcampus.exception.LinkedResourceNotFoundException;
 import com.smartcampus.model.Room;
 import com.smartcampus.model.Sensor;
 import com.smartcampus.store.DataStore;
+//Jax-rs imports the API annotations and responses
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//Defines the base URI path for this resource which is sensors
 @Path("/sensors")
+//API produces JSON responses 
 @Produces(MediaType.APPLICATION_JSON)
+//API accepts JSON input 
 @Consumes(MediaType.APPLICATION_JSON)
 public class SensorResource {
+    
+    //Handles the HTTP GET requests to retrieve all sensors
     @GET
     public List<Sensor> getAllSensors(@QueryParam("type") String type) {
         List<Sensor> sensors = new ArrayList<>(DataStore.sensors.values());
@@ -28,6 +33,8 @@ public class SensorResource {
                         && sensor.getType().equalsIgnoreCase(type))
                  .collect(Collectors.toList());
     }
+    
+    //Handles the HTTP POST requests to create a new sensor
     @POST
     public Response createSensor(Sensor sensor) {
         if (sensor == null) {
@@ -49,7 +56,8 @@ public class SensorResource {
         }
 
         Room room = DataStore.rooms.get(sensor.getRoomId());
-
+        
+        //Handles whether there is a sensor or not by checking sensor by its ID
         if (room == null) {
             throw new LinkedResourceNotFoundException(
                     "Room with ID " + sensor.getRoomId() + " does not exist."
@@ -79,6 +87,7 @@ public class SensorResource {
                 .entity(sensor)
                 .build();
     }
+    //If a request comes to /sensors/{sensorId}/readings it is passed to the SensorReadingResource class to handle
     @Path("/{sensorId}/readings")
     public SensorReadingResource getSensorReadingResource() {
         return new SensorReadingResource();
