@@ -157,6 +157,87 @@ This information could be used by an attacker to target system flaws. The global
 
 It is advantageous to use JAX-RS filters for cross-cutting concerns as JAX-RS filters are beneficial for logging because they are automatically applied to all requests and responses. This prevents repeating logging statements within each resource method. Using a filter keeps resource classes cleaner and ensures consistent reporting across the entire API.
 
+## POSTMAN TESTS requests
+Postman Tests
+For the coursework
 
+﻿GET 
+http://localhost:8080/SmartCampusAPI/api/v1
+
+GET
+http://localhost:8080/SmartCampusAPI/api/v1/rooms
+
+POST
+http://localhost:8080/SmartCampusAPI/api/v1/rooms﻿
+
+Body
+raw (json)
+json
+{
+  "id": "room1",
+  "name": "Computer Lab",
+  "capacity": 40,
+  "sensorIds": []
+}
+
+GET
+http://localhost:8080/SmartCampusAPI/api/v1/rooms/room1﻿
+
+POST
+http://localhost:8080/SmartCampusAPI/api/v1/sensors﻿
+
+Body
+raw (json)
+json
+{
+  "id": "sensor1",
+  "type": "CO2",
+  "status": "ACTIVE",
+  "currentValue": 400.0,
+  "roomId": "room1"
+}
+
+GET
+http://localhost:8080/SmartCampusAPI/api/v1/sensors
+
+GET
+http://localhost:8080/SmartCampusAPI/api/v1/sensors
+
+GET 
+http://localhost:8080/SmartCampusAPI/api/v1/sensors?type=CO2
+
+Query Params
+type
+CO2
+
+GET
+http://localhost:8080/SmartCampusAPI/api/v1/sensors/sensor1/readings
+﻿
+POST
+http://localhost:8080/SmartCampusAPI/api/v1/sensors/sensor1/readings
+
+
+Body
+raw (json)
+json
+{
+  "value": 410.2
+}
+
+GET
+http://localhost:8080/SmartCampusAPI/api/v1/sensors/sensor1/readings
+
+GET
+http://localhost:8080/SmartCampusAPI/api/v1/sensors
+
+GET
+http://localhost:8080/SmartCampusAPI/api/v1
+
+
+
+﻿
+
+GET
+http://localhost:8080/SmartCampusAPI/api/v1
 
 
