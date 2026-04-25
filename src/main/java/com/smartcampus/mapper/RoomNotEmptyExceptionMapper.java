@@ -9,14 +9,14 @@ import javax.ws.rs.ext.Provider;
 import java.util.HashMap;
 import java.util.Map;
 
-@Provider
+@Provider //This annotation registers the mapper with JAX-RS
 public class RoomNotEmptyExceptionMapper implements ExceptionMapper<RoomNotEmptyException> {
 
     @Override
     public Response toResponse(RoomNotEmptyException exception) {
 
         Map<String, Object> error = new HashMap<>();
-
+       //Displays the error 
         error.put("message", exception.getMessage());
         error.put("status", 409);
         error.put("error", "Room still contains sensors");
