@@ -2,15 +2,19 @@ package com.smartcampus.model;
 
 
 public class Sensor { 
+    //Defining variables for Sensor
     private String id;
     private String type;
     private String status;
     private double currentValue;
     private String roomId;
-
+    
+    
+    //Empty constructor for the postman tests
     public Sensor() {
     }
     
+    //Constructor 
     public Sensor(String id, String type, String status, double currentValue, String roomId) {
         this.id = id;
         this.type = type;
@@ -19,6 +23,7 @@ public class Sensor {
         this.roomId = roomId;
     }
     
+    //Getters and Setters
     public String getId() {
         return id;
     }
